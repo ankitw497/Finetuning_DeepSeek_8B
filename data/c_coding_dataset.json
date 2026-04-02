@@ -1,0 +1,306 @@
+{
+  "train": [
+    {
+      "instruction": "Write a C function that swaps two integers using pointers.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nvoid swap(int *a, int *b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}\n\nint main() {\n    int x = 5, y = 10;\n    swap(&x, &y);\n    printf(\"x = %d, y = %d\\n\", x, y);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that reverses a string in-place using pointers.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\nvoid reverse_string(char *str) {\n    char *start = str;\n    char *end = str + strlen(str) - 1;\n    while (start < end) {\n        char temp = *start;\n        *start = *end;\n        *end = temp;\n        start++;\n        end--;\n    }\n}\n\nint main() {\n    char s[] = \"hello\";\n    reverse_string(s);\n    printf(\"%s\\n\", s);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that dynamically allocates an array of integers, fills it with values 1 to N, and frees the memory.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int n = 10;\n    int *arr = (int *)malloc(n * sizeof(int));\n    if (arr == NULL) {\n        fprintf(stderr, \"Memory allocation failed\\n\");\n        return 1;\n    }\n    for (int i = 0; i < n; i++) {\n        arr[i] = i + 1;\n    }\n    for (int i = 0; i < n; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    printf(\"\\n\");\n    free(arr);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function to implement bubble sort on an integer array.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nvoid bubble_sort(int arr[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        for (int j = 0; j < n - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                int temp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = temp;\n            }\n        }\n    }\n}\n\nint main() {\n    int arr[] = {64, 34, 25, 12, 22, 11, 90};\n    int n = sizeof(arr) / sizeof(arr[0]);\n    bubble_sort(arr, n);\n    for (int i = 0; i < n; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Define a C struct for a student with name and grade, and write a function to print student details.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\ntypedef struct {\n    char name[50];\n    float grade;\n} Student;\n\nvoid print_student(const Student *s) {\n    printf(\"Name: %s, Grade: %.2f\\n\", s->name, s->grade);\n}\n\nint main() {\n    Student s;\n    strcpy(s.name, \"Alice\");\n    s.grade = 92.5f;\n    print_student(&s);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that reads integers from a file and computes their sum.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint main() {\n    FILE *fp = fopen(\"numbers.txt\", \"r\");\n    if (fp == NULL) {\n        fprintf(stderr, \"Cannot open file\\n\");\n        return 1;\n    }\n    int num, sum = 0;\n    while (fscanf(fp, \"%d\", &num) == 1) {\n        sum += num;\n    }\n    fclose(fp);\n    printf(\"Sum = %d\\n\", sum);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that performs binary search on a sorted integer array.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint binary_search(int arr[], int n, int target) {\n    int left = 0, right = n - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (arr[mid] == target) return mid;\n        if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}\n\nint main() {\n    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};\n    int n = sizeof(arr) / sizeof(arr[0]);\n    int idx = binary_search(arr, n, 23);\n    printf(\"Found at index: %d\\n\", idx);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Implement a stack using a dynamic array in C with push, pop, and peek operations.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct {\n    int *data;\n    int top;\n    int capacity;\n} Stack;\n\nvoid stack_init(Stack *s, int capacity) {\n    s->data = (int *)malloc(capacity * sizeof(int));\n    s->top = -1;\n    s->capacity = capacity;\n}\n\nvoid push(Stack *s, int val) {\n    if (s->top < s->capacity - 1) {\n        s->data[++s->top] = val;\n    }\n}\n\nint pop(Stack *s) {\n    if (s->top >= 0) return s->data[s->top--];\n    return -1;\n}\n\nint peek(const Stack *s) {\n    if (s->top >= 0) return s->data[s->top];\n    return -1;\n}\n\nvoid stack_free(Stack *s) { free(s->data); }\n\nint main() {\n    Stack s;\n    stack_init(&s, 10);\n    push(&s, 1); push(&s, 2); push(&s, 3);\n    printf(\"Peek: %d\\n\", peek(&s));\n    printf(\"Pop: %d\\n\", pop(&s));\n    stack_free(&s);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that calculates the factorial of a number recursively.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nunsigned long long factorial(int n) {\n    if (n <= 1) return 1;\n    return n * factorial(n - 1);\n}\n\nint main() {\n    for (int i = 0; i <= 10; i++) {\n        printf(\"%d! = %llu\\n\", i, factorial(i));\n    }\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that uses malloc and realloc to build a dynamically growing array.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int *arr = NULL;\n    int size = 0;\n    int capacity = 4;\n    arr = (int *)malloc(capacity * sizeof(int));\n    for (int i = 0; i < 10; i++) {\n        if (size == capacity) {\n            capacity *= 2;\n            arr = (int *)realloc(arr, capacity * sizeof(int));\n            if (!arr) { fprintf(stderr, \"realloc failed\\n\"); return 1; }\n        }\n        arr[size++] = i * i;\n    }\n    for (int i = 0; i < size; i++) printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    free(arr);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Implement a singly linked list in C with insert and print operations.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Node {\n    int data;\n    struct Node *next;\n} Node;\n\nNode *insert(Node *head, int val) {\n    Node *n = (Node *)malloc(sizeof(Node));\n    n->data = val;\n    n->next = head;\n    return n;\n}\n\nvoid print_list(Node *head) {\n    while (head) {\n        printf(\"%d -> \", head->data);\n        head = head->next;\n    }\n    printf(\"NULL\\n\");\n}\n\nint main() {\n    Node *head = NULL;\n    head = insert(head, 3);\n    head = insert(head, 7);\n    head = insert(head, 1);\n    print_list(head);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that finds the maximum element in an array using pointer arithmetic.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint find_max(int *arr, int n) {\n    int *end = arr + n;\n    int max = *arr;\n    for (int *p = arr + 1; p < end; p++) {\n        if (*p > max) max = *p;\n    }\n    return max;\n}\n\nint main() {\n    int arr[] = {3, 1, 4, 1, 5, 9, 2, 6};\n    printf(\"Max = %d\\n\", find_max(arr, sizeof(arr)/sizeof(arr[0])));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that copies content from one file to another.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint main() {\n    FILE *src = fopen(\"source.txt\", \"r\");\n    FILE *dst = fopen(\"dest.txt\", \"w\");\n    if (!src || !dst) {\n        fprintf(stderr, \"File open error\\n\");\n        return 1;\n    }\n    char ch;\n    while ((ch = fgetc(src)) != EOF) {\n        fputc(ch, dst);\n    }\n    fclose(src);\n    fclose(dst);\n    printf(\"File copied successfully\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Implement selection sort in C.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nvoid selection_sort(int arr[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        int min_idx = i;\n        for (int j = i + 1; j < n; j++) {\n            if (arr[j] < arr[min_idx]) min_idx = j;\n        }\n        int tmp = arr[min_idx];\n        arr[min_idx] = arr[i];\n        arr[i] = tmp;\n    }\n}\n\nint main() {\n    int arr[] = {29, 10, 14, 37, 13};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    selection_sort(arr, n);\n    for (int i = 0; i < n; i++) printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Define a C struct for a point in 2D space and write functions to compute distance between two points.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <math.h>\n\ntypedef struct { double x, y; } Point;\n\ndouble distance(Point a, Point b) {\n    double dx = a.x - b.x, dy = a.y - b.y;\n    return sqrt(dx*dx + dy*dy);\n}\n\nint main() {\n    Point p1 = {0.0, 0.0}, p2 = {3.0, 4.0};\n    printf(\"Distance: %.2f\\n\", distance(p1, p2));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that counts the number of words in a string.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <ctype.h>\n\nint count_words(const char *s) {\n    int count = 0, in_word = 0;\n    while (*s) {\n        if (isspace((unsigned char)*s)) {\n            in_word = 0;\n        } else if (!in_word) {\n            in_word = 1;\n            count++;\n        }\n        s++;\n    }\n    return count;\n}\n\nint main() {\n    printf(\"%d\\n\", count_words(\"  hello world  foo  \"));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements merge sort.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nvoid merge(int arr[], int l, int m, int r) {\n    int n1 = m - l + 1, n2 = r - m;\n    int *L = malloc(n1 * sizeof(int)), *R = malloc(n2 * sizeof(int));\n    for (int i = 0; i < n1; i++) L[i] = arr[l + i];\n    for (int j = 0; j < n2; j++) R[j] = arr[m + 1 + j];\n    int i = 0, j = 0, k = l;\n    while (i < n1 && j < n2) arr[k++] = (L[i] <= R[j]) ? L[i++] : R[j++];\n    while (i < n1) arr[k++] = L[i++];\n    while (j < n2) arr[k++] = R[j++];\n    free(L); free(R);\n}\n\nvoid merge_sort(int arr[], int l, int r) {\n    if (l < r) {\n        int m = l + (r - l) / 2;\n        merge_sort(arr, l, m);\n        merge_sort(arr, m + 1, r);\n        merge(arr, l, m, r);\n    }\n}\n\nint main() {\n    int arr[] = {38, 27, 43, 3, 9, 82, 10};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    merge_sort(arr, 0, n - 1);\n    for (int i = 0; i < n; i++) printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that uses a struct to represent a bank account and implements deposit and withdraw functions.",
+      "input": "",
+      "output": "#include <stdio.h>\n\ntypedef struct {\n    char owner[50];\n    double balance;\n} Account;\n\nvoid deposit(Account *acc, double amount) {\n    if (amount > 0) acc->balance += amount;\n}\n\nint withdraw(Account *acc, double amount) {\n    if (amount > acc->balance) return 0;\n    acc->balance -= amount;\n    return 1;\n}\n\nint main() {\n    Account acc = {\"Bob\", 1000.0};\n    deposit(&acc, 500.0);\n    withdraw(&acc, 200.0);\n    printf(\"Balance: %.2f\\n\", acc.balance);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that checks if a string is a palindrome.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\nint is_palindrome(const char *s) {\n    int n = strlen(s);\n    for (int i = 0; i < n / 2; i++) {\n        if (s[i] != s[n - 1 - i]) return 0;\n    }\n    return 1;\n}\n\nint main() {\n    printf(\"%d\\n\", is_palindrome(\"racecar\"));\n    printf(\"%d\\n\", is_palindrome(\"hello\"));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that computes the GCD of two integers using Euclid's algorithm.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint gcd(int a, int b) {\n    while (b != 0) {\n        int t = b;\n        b = a % b;\n        a = t;\n    }\n    return a;\n}\n\nint main() {\n    printf(\"GCD(48, 18) = %d\\n\", gcd(48, 18));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that writes student records (name, score) to a binary file and reads them back.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\ntypedef struct { char name[30]; int score; } Record;\n\nint main() {\n    Record records[] = {{\"Alice\", 90}, {\"Bob\", 75}, {\"Carol\", 88}};\n    int n = 3;\n    FILE *fp = fopen(\"records.bin\", \"wb\");\n    fwrite(records, sizeof(Record), n, fp);\n    fclose(fp);\n\n    fp = fopen(\"records.bin\", \"rb\");\n    Record buf;\n    while (fread(&buf, sizeof(Record), 1, fp) == 1) {\n        printf(\"%s: %d\\n\", buf.name, buf.score);\n    }\n    fclose(fp);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function to compute the Fibonacci sequence up to N terms using dynamic memory allocation.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nlong long *fibonacci(int n) {\n    long long *seq = (long long *)malloc(n * sizeof(long long));\n    if (!seq) return NULL;\n    seq[0] = 0;\n    if (n > 1) seq[1] = 1;\n    for (int i = 2; i < n; i++) seq[i] = seq[i-1] + seq[i-2];\n    return seq;\n}\n\nint main() {\n    int n = 10;\n    long long *fib = fibonacci(n);\n    for (int i = 0; i < n; i++) printf(\"%lld \", fib[i]);\n    printf(\"\\n\");\n    free(fib);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that implements a queue using two stacks.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\n#define MAX 100\ntypedef struct { int data[MAX]; int top; } Stack;\n\nvoid push(Stack *s, int v) { if (s->top < MAX-1) s->data[++(s->top)] = v; }\nint pop(Stack *s) { return (s->top >= 0) ? s->data[(s->top)--] : -1; }\nint is_empty(Stack *s) { return s->top < 0; }\n\ntypedef struct { Stack s1, s2; } Queue;\n\nvoid enqueue(Queue *q, int v) { push(&q->s1, v); }\n\nint dequeue(Queue *q) {\n    if (is_empty(&q->s2)) {\n        while (!is_empty(&q->s1)) push(&q->s2, pop(&q->s1));\n    }\n    return pop(&q->s2);\n}\n\nint main() {\n    Queue q = {{{0}, -1}, {{0}, -1}};\n    enqueue(&q, 1); enqueue(&q, 2); enqueue(&q, 3);\n    printf(\"%d %d %d\\n\", dequeue(&q), dequeue(&q), dequeue(&q));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that searches for a character in a string and returns a pointer to its first occurrence.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nchar *find_char(const char *s, char c) {\n    while (*s) {\n        if (*s == c) return (char *)s;\n        s++;\n    }\n    return NULL;\n}\n\nint main() {\n    const char *s = \"hello world\";\n    char *p = find_char(s, 'w');\n    if (p) printf(\"Found at position %ld: %s\\n\", p - s, p);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that counts the frequency of each character in a string.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char s[] = \"hello world\";\n    int freq[256] = {0};\n    for (int i = 0; s[i]; i++) freq[(unsigned char)s[i]]++;\n    for (int i = 0; i < 256; i++) {\n        if (freq[i] > 0) printf(\"'%c': %d\\n\", (char)i, freq[i]);\n    }\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements insertion sort.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nvoid insertion_sort(int arr[], int n) {\n    for (int i = 1; i < n; i++) {\n        int key = arr[i], j = i - 1;\n        while (j >= 0 && arr[j] > key) {\n            arr[j + 1] = arr[j];\n            j--;\n        }\n        arr[j + 1] = key;\n    }\n}\n\nint main() {\n    int arr[] = {12, 11, 13, 5, 6};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    insertion_sort(arr, n);\n    for (int i = 0; i < n; i++) printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that flattens a 2D array into a 1D array using dynamic memory allocation.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nint *flatten(int rows, int cols, int src[rows][cols]) {\n    int *dst = (int *)malloc(rows * cols * sizeof(int));\n    for (int i = 0; i < rows; i++)\n        for (int j = 0; j < cols; j++)\n            dst[i * cols + j] = src[i][j];\n    return dst;\n}\n\nint main() {\n    int mat[2][3] = {{1,2,3},{4,5,6}};\n    int *flat = flatten(2, 3, mat);\n    for (int i = 0; i < 6; i++) printf(\"%d \", flat[i]);\n    printf(\"\\n\");\n    free(flat);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that appends data to an existing text file.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint main() {\n    FILE *fp = fopen(\"log.txt\", \"a\");\n    if (!fp) { fprintf(stderr, \"Cannot open file\\n\"); return 1; }\n    fprintf(fp, \"New log entry\\n\");\n    fclose(fp);\n    printf(\"Appended successfully\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements a doubly linked list with insert and delete operations.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Node { int data; struct Node *prev, *next; } Node;\n\nNode *insert_front(Node *head, int val) {\n    Node *n = (Node *)malloc(sizeof(Node));\n    n->data = val; n->prev = NULL; n->next = head;\n    if (head) head->prev = n;\n    return n;\n}\n\nNode *delete_node(Node *head, int val) {\n    Node *cur = head;\n    while (cur && cur->data != val) cur = cur->next;\n    if (!cur) return head;\n    if (cur->prev) cur->prev->next = cur->next;\n    if (cur->next) cur->next->prev = cur->prev;\n    if (cur == head) head = cur->next;\n    free(cur);\n    return head;\n}\n\nvoid print_list(Node *h) {\n    while (h) { printf(\"%d \", h->data); h = h->next; } printf(\"\\n\");\n}\n\nint main() {\n    Node *head = NULL;\n    head = insert_front(head, 3);\n    head = insert_front(head, 2);\n    head = insert_front(head, 1);\n    print_list(head);\n    head = delete_node(head, 2);\n    print_list(head);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that computes the transpose of a matrix.",
+      "input": "",
+      "output": "#include <stdio.h>\n\n#define N 3\n\nvoid transpose(int src[N][N], int dst[N][N]) {\n    for (int i = 0; i < N; i++)\n        for (int j = 0; j < N; j++)\n            dst[j][i] = src[i][j];\n}\n\nint main() {\n    int m[N][N] = {{1,2,3},{4,5,6},{7,8,9}};\n    int t[N][N];\n    transpose(m, t);\n    for (int i = 0; i < N; i++) {\n        for (int j = 0; j < N; j++) printf(\"%d \", t[i][j]);\n        printf(\"\\n\");\n    }\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function to implement a circular buffer (ring buffer) with put and get operations.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct {\n    int *buf;\n    int head, tail, size, capacity;\n} RingBuffer;\n\nRingBuffer *rb_create(int cap) {\n    RingBuffer *rb = malloc(sizeof(RingBuffer));\n    rb->buf = malloc(cap * sizeof(int));\n    rb->head = rb->tail = rb->size = 0;\n    rb->capacity = cap;\n    return rb;\n}\n\nint rb_put(RingBuffer *rb, int val) {\n    if (rb->size == rb->capacity) return 0;\n    rb->buf[rb->tail] = val;\n    rb->tail = (rb->tail + 1) % rb->capacity;\n    rb->size++;\n    return 1;\n}\n\nint rb_get(RingBuffer *rb, int *val) {\n    if (rb->size == 0) return 0;\n    *val = rb->buf[rb->head];\n    rb->head = (rb->head + 1) % rb->capacity;\n    rb->size--;\n    return 1;\n}\n\nint main() {\n    RingBuffer *rb = rb_create(4);\n    rb_put(rb, 10); rb_put(rb, 20); rb_put(rb, 30);\n    int v;\n    while (rb_get(rb, &v)) printf(\"%d \", v);\n    printf(\"\\n\");\n    free(rb->buf); free(rb);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that uses fseek and ftell to determine file size.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nlong file_size(const char *path) {\n    FILE *fp = fopen(path, \"rb\");\n    if (!fp) return -1;\n    fseek(fp, 0, SEEK_END);\n    long size = ftell(fp);\n    fclose(fp);\n    return size;\n}\n\nint main() {\n    long sz = file_size(\"source.txt\");\n    if (sz >= 0) printf(\"File size: %ld bytes\\n\", sz);\n    else printf(\"File not found\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that removes duplicates from a sorted array in-place.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint remove_duplicates(int arr[], int n) {\n    if (n == 0) return 0;\n    int k = 1;\n    for (int i = 1; i < n; i++) {\n        if (arr[i] != arr[i-1]) arr[k++] = arr[i];\n    }\n    return k;\n}\n\nint main() {\n    int arr[] = {1, 1, 2, 3, 3, 4, 5, 5};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    int k = remove_duplicates(arr, n);\n    for (int i = 0; i < k; i++) printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that demonstrates pointer to function by implementing a simple calculator.",
+      "input": "",
+      "output": "#include <stdio.h>\n\ntypedef double (*op_func)(double, double);\n\ndouble add(double a, double b) { return a + b; }\ndouble sub(double a, double b) { return a - b; }\ndouble mul(double a, double b) { return a * b; }\ndouble dvd(double a, double b) { return b != 0 ? a / b : 0; }\n\nint main() {\n    op_func ops[] = {add, sub, mul, dvd};\n    char *names[] = {\"+\", \"-\", \"*\", \"/\"};\n    double a = 10.0, b = 3.0;\n    for (int i = 0; i < 4; i++) {\n        printf(\"%.1f %s %.1f = %.4f\\n\", a, names[i], b, ops[i](a, b));\n    }\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that converts a decimal integer to binary string.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\nvoid to_binary(unsigned int n, char *buf) {\n    int i = 0;\n    if (n == 0) { buf[0] = '0'; buf[1] = '\\0'; return; }\n    while (n > 0) {\n        buf[i++] = '0' + (n & 1);\n        n >>= 1;\n    }\n    buf[i] = '\\0';\n    // reverse\n    for (int j = 0, k = i-1; j < k; j++, k--) {\n        char t = buf[j]; buf[j] = buf[k]; buf[k] = t;\n    }\n}\n\nint main() {\n    char buf[33];\n    to_binary(42, buf);\n    printf(\"%s\\n\", buf);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements quick sort.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nvoid swap(int *a, int *b) { int t = *a; *a = *b; *b = t; }\n\nint partition(int arr[], int low, int high) {\n    int pivot = arr[high], i = low - 1;\n    for (int j = low; j < high; j++) {\n        if (arr[j] <= pivot) swap(&arr[++i], &arr[j]);\n    }\n    swap(&arr[i+1], &arr[high]);\n    return i + 1;\n}\n\nvoid quick_sort(int arr[], int low, int high) {\n    if (low < high) {\n        int pi = partition(arr, low, high);\n        quick_sort(arr, low, pi - 1);\n        quick_sort(arr, pi + 1, high);\n    }\n}\n\nint main() {\n    int arr[] = {10, 7, 8, 9, 1, 5};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    quick_sort(arr, 0, n-1);\n    for (int i = 0; i < n; i++) printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that reads a CSV file line by line and prints each field.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\nint main() {\n    FILE *fp = fopen(\"data.csv\", \"r\");\n    if (!fp) { fprintf(stderr, \"Cannot open CSV\\n\"); return 1; }\n    char line[256];\n    while (fgets(line, sizeof(line), fp)) {\n        char *token = strtok(line, \",\\n\");\n        while (token) {\n            printf(\"[%s]\", token);\n            token = strtok(NULL, \",\\n\");\n        }\n        printf(\"\\n\");\n    }\n    fclose(fp);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that allocates and initialises a 2D matrix dynamically.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nint **alloc_matrix(int rows, int cols) {\n    int **mat = (int **)malloc(rows * sizeof(int *));\n    for (int i = 0; i < rows; i++) {\n        mat[i] = (int *)calloc(cols, sizeof(int));\n    }\n    return mat;\n}\n\nvoid free_matrix(int **mat, int rows) {\n    for (int i = 0; i < rows; i++) free(mat[i]);\n    free(mat);\n}\n\nint main() {\n    int **m = alloc_matrix(3, 4);\n    for (int i = 0; i < 3; i++)\n        for (int j = 0; j < 4; j++)\n            m[i][j] = i * 4 + j;\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 4; j++) printf(\"%2d \", m[i][j]);\n        printf(\"\\n\");\n    }\n    free_matrix(m, 3);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that uses a struct to implement a min-heap with insert and extract-min.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\n#define HEAP_MAX 100\ntypedef struct { int data[HEAP_MAX]; int size; } MinHeap;\n\nvoid heap_push(MinHeap *h, int val) {\n    int i = h->size++;\n    h->data[i] = val;\n    while (i > 0) {\n        int p = (i - 1) / 2;\n        if (h->data[p] <= h->data[i]) break;\n        int t = h->data[p]; h->data[p] = h->data[i]; h->data[i] = t;\n        i = p;\n    }\n}\n\nint heap_pop(MinHeap *h) {\n    int top = h->data[0];\n    h->data[0] = h->data[--(h->size)];\n    int i = 0;\n    while (1) {\n        int l = 2*i+1, r = 2*i+2, m = i;\n        if (l < h->size && h->data[l] < h->data[m]) m = l;\n        if (r < h->size && h->data[r] < h->data[m]) m = r;\n        if (m == i) break;\n        int t = h->data[i]; h->data[i] = h->data[m]; h->data[m] = t;\n        i = m;\n    }\n    return top;\n}\n\nint main() {\n    MinHeap h = {{0}, 0};\n    heap_push(&h, 5); heap_push(&h, 3); heap_push(&h, 8); heap_push(&h, 1);\n    while (h.size) printf(\"%d \", heap_pop(&h));\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that creates a simple hash table with separate chaining for string keys.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define TABLE_SIZE 16\n\ntypedef struct Entry { char *key; int value; struct Entry *next; } Entry;\nEntry *table[TABLE_SIZE];\n\nunsigned int hash(const char *key) {\n    unsigned int h = 0;\n    while (*key) h = h * 31 + (unsigned char)*key++;\n    return h % TABLE_SIZE;\n}\n\nvoid ht_put(const char *key, int val) {\n    unsigned int idx = hash(key);\n    Entry *e = malloc(sizeof(Entry));\n    e->key = strdup(key); e->value = val; e->next = table[idx];\n    table[idx] = e;\n}\n\nint ht_get(const char *key) {\n    unsigned int idx = hash(key);\n    for (Entry *e = table[idx]; e; e = e->next)\n        if (strcmp(e->key, key) == 0) return e->value;\n    return -1;\n}\n\nint main() {\n    ht_put(\"alpha\", 1); ht_put(\"beta\", 2); ht_put(\"gamma\", 3);\n    printf(\"alpha=%d beta=%d gamma=%d\\n\", ht_get(\"alpha\"), ht_get(\"beta\"), ht_get(\"gamma\"));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that counts lines, words, and characters in a file (like wc).",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <ctype.h>\n\nvoid wc(const char *path) {\n    FILE *fp = fopen(path, \"r\");\n    if (!fp) { fprintf(stderr, \"Cannot open %s\\n\", path); return; }\n    long lines = 0, words = 0, chars = 0;\n    int in_word = 0, c;\n    while ((c = fgetc(fp)) != EOF) {\n        chars++;\n        if (c == '\\n') lines++;\n        if (isspace(c)) { in_word = 0; }\n        else if (!in_word) { in_word = 1; words++; }\n    }\n    fclose(fp);\n    printf(\"Lines: %ld  Words: %ld  Chars: %ld\\n\", lines, words, chars);\n}\n\nint main() {\n    wc(\"source.txt\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements binary tree insertion and in-order traversal.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct BST { int val; struct BST *left, *right; } BST;\n\nBST *bst_insert(BST *root, int val) {\n    if (!root) {\n        BST *n = malloc(sizeof(BST));\n        n->val = val; n->left = n->right = NULL;\n        return n;\n    }\n    if (val < root->val) root->left = bst_insert(root->left, val);\n    else if (val > root->val) root->right = bst_insert(root->right, val);\n    return root;\n}\n\nvoid inorder(BST *root) {\n    if (!root) return;\n    inorder(root->left);\n    printf(\"%d \", root->val);\n    inorder(root->right);\n}\n\nint main() {\n    BST *root = NULL;\n    int vals[] = {5, 3, 7, 1, 4, 6, 8};\n    for (int i = 0; i < 7; i++) root = bst_insert(root, vals[i]);\n    inorder(root);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that multiplies two matrices and returns the result.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nvoid mat_mul(int **A, int **B, int **C, int n) {\n    for (int i = 0; i < n; i++)\n        for (int j = 0; j < n; j++) {\n            C[i][j] = 0;\n            for (int k = 0; k < n; k++) C[i][j] += A[i][k] * B[k][j];\n        }\n}\n\nint main() {\n    int n = 2;\n    int a[2][2] = {{1,2},{3,4}}, b[2][2] = {{5,6},{7,8}}, c[2][2];\n    int *A[2] = {a[0],a[1]}, *B[2] = {b[0],b[1]}, *C[2] = {c[0],c[1]};\n    mat_mul((int**)A,(int**)B,(int**)C,n);\n    for (int i=0;i<n;i++){for(int j=0;j<n;j++)printf(\"%d \",c[i][j]);printf(\"\\n\");}\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that reads a line from stdin safely without buffer overflow.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar *safe_readline(void) {\n    size_t cap = 64, len = 0;\n    char *buf = malloc(cap);\n    int c;\n    while ((c = getchar()) != EOF && c != '\\n') {\n        if (len + 1 >= cap) {\n            cap *= 2;\n            buf = realloc(buf, cap);\n        }\n        buf[len++] = (char)c;\n    }\n    buf[len] = '\\0';\n    return buf;\n}\n\nint main() {\n    printf(\"Enter a line: \");\n    char *line = safe_readline();\n    printf(\"Got: %s\\n\", line);\n    free(line);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that demonstrates the use of void pointers for a generic swap function.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\nvoid generic_swap(void *a, void *b, size_t size) {\n    char tmp[256];\n    memcpy(tmp, a, size);\n    memcpy(a, b, size);\n    memcpy(b, tmp, size);\n}\n\nint main() {\n    int x = 1, y = 2;\n    generic_swap(&x, &y, sizeof(int));\n    printf(\"x=%d y=%d\\n\", x, y);\n\n    double a = 3.14, b = 2.71;\n    generic_swap(&a, &b, sizeof(double));\n    printf(\"a=%.2f b=%.2f\\n\", a, b);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements a simple string tokenizer.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar **tokenize(const char *str, const char *delim, int *count) {\n    char *copy = strdup(str);\n    char **tokens = malloc(64 * sizeof(char *));\n    *count = 0;\n    char *tok = strtok(copy, delim);\n    while (tok) {\n        tokens[(*count)++] = strdup(tok);\n        tok = strtok(NULL, delim);\n    }\n    free(copy);\n    return tokens;\n}\n\nint main() {\n    int n;\n    char **tokens = tokenize(\"one,two,three,four\", \",\", &n);\n    for (int i = 0; i < n; i++) { printf(\"%s\\n\", tokens[i]); free(tokens[i]); }\n    free(tokens);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that uses structs and file I/O to implement a simple contact book.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <string.h>\n\ntypedef struct { char name[50]; char phone[20]; } Contact;\n\nvoid save_contacts(const char *path, Contact *contacts, int n) {\n    FILE *fp = fopen(path, \"wb\");\n    fwrite(&n, sizeof(int), 1, fp);\n    fwrite(contacts, sizeof(Contact), n, fp);\n    fclose(fp);\n}\n\nint load_contacts(const char *path, Contact *contacts, int max) {\n    FILE *fp = fopen(path, \"rb\");\n    if (!fp) return 0;\n    int n = 0;\n    fread(&n, sizeof(int), 1, fp);\n    if (n > max) n = max;\n    fread(contacts, sizeof(Contact), n, fp);\n    fclose(fp);\n    return n;\n}\n\nint main() {\n    Contact book[] = {{\"Alice\", \"555-1234\"}, {\"Bob\", \"555-5678\"}};\n    save_contacts(\"contacts.bin\", book, 2);\n    Contact loaded[10];\n    int n = load_contacts(\"contacts.bin\", loaded, 10);\n    for (int i = 0; i < n; i++) printf(\"%s: %s\\n\", loaded[i].name, loaded[i].phone);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that computes prime numbers up to N using the Sieve of Eratosthenes.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nvoid sieve(int n) {\n    char *is_prime = calloc(n + 1, 1);\n    memset(is_prime, 1, n + 1);\n    is_prime[0] = is_prime[1] = 0;\n    for (int i = 2; (long long)i * i <= n; i++) {\n        if (is_prime[i]) {\n            for (int j = i * i; j <= n; j += i) is_prime[j] = 0;\n        }\n    }\n    for (int i = 2; i <= n; i++) if (is_prime[i]) printf(\"%d \", i);\n    printf(\"\\n\");\n    free(is_prime);\n}\n\nint main() { sieve(50); return 0; }"
+    },
+    {
+      "instruction": "Write a C program that demonstrates multi-level pointer dereferencing.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint main() {\n    int val = 42;\n    int *ptr1 = &val;\n    int **ptr2 = &ptr1;\n    int ***ptr3 = &ptr2;\n\n    printf(\"val   = %d\\n\", val);\n    printf(\"*ptr1 = %d\\n\", *ptr1);\n    printf(\"**ptr2 = %d\\n\", **ptr2);\n    printf(\"***ptr3 = %d\\n\", ***ptr3);\n\n    ***ptr3 = 100;\n    printf(\"After modification: val = %d\\n\", val);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that implements linear search and returns the index of the target.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint linear_search(int arr[], int n, int target) {\n    for (int i = 0; i < n; i++) {\n        if (arr[i] == target) return i;\n    }\n    return -1;\n}\n\nint main() {\n    int arr[] = {4, 2, 7, 1, 9, 3};\n    int n = sizeof(arr)/sizeof(arr[0]);\n    printf(\"Index of 7: %d\\n\", linear_search(arr, n, 7));\n    printf(\"Index of 5: %d\\n\", linear_search(arr, n, 5));\n    return 0;\n}"
+    }
+  ],
+  "eval": [
+    {
+      "instruction": "Write a C function that reverses a singly linked list.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Node { int data; struct Node *next; } Node;\n\nNode *reverse(Node *head) {\n    Node *prev = NULL, *cur = head, *next = NULL;\n    while (cur) {\n        next = cur->next;\n        cur->next = prev;\n        prev = cur;\n        cur = next;\n    }\n    return prev;\n}\n\nNode *new_node(int v) { Node *n = malloc(sizeof(Node)); n->data = v; n->next = NULL; return n; }\n\nvoid print_list(Node *h) { while (h) { printf(\"%d \", h->data); h = h->next; } printf(\"\\n\"); }\n\nint main() {\n    Node *h = new_node(1); h->next = new_node(2); h->next->next = new_node(3);\n    h = reverse(h);\n    print_list(h);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that uses malloc to create and return a copy of a string.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar *str_dup(const char *s) {\n    size_t len = strlen(s);\n    char *copy = (char *)malloc(len + 1);\n    if (!copy) return NULL;\n    memcpy(copy, s, len + 1);\n    return copy;\n}\n\nint main() {\n    char *copy = str_dup(\"hello world\");\n    printf(\"%s\\n\", copy);\n    free(copy);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that writes an array of integers to a text file, one per line, then reads them back and prints their sum.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint main() {\n    int arr[] = {10, 20, 30, 40, 50};\n    int n = 5;\n    FILE *fp = fopen(\"ints.txt\", \"w\");\n    for (int i = 0; i < n; i++) fprintf(fp, \"%d\\n\", arr[i]);\n    fclose(fp);\n\n    fp = fopen(\"ints.txt\", \"r\");\n    int v, sum = 0;\n    while (fscanf(fp, \"%d\", &v) == 1) sum += v;\n    fclose(fp);\n    printf(\"Sum = %d\\n\", sum);\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that searches a binary search tree for a given value and returns 1 if found.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct BST { int val; struct BST *left, *right; } BST;\n\nBST *insert(BST *root, int v) {\n    if (!root) { BST *n = malloc(sizeof(BST)); n->val=v; n->left=n->right=NULL; return n; }\n    if (v < root->val) root->left = insert(root->left, v);\n    else root->right = insert(root->right, v);\n    return root;\n}\n\nint search(BST *root, int v) {\n    if (!root) return 0;\n    if (root->val == v) return 1;\n    return v < root->val ? search(root->left, v) : search(root->right, v);\n}\n\nint main() {\n    BST *root = NULL;\n    int vals[] = {5,3,7,1,4};\n    for (int i=0;i<5;i++) root = insert(root, vals[i]);\n    printf(\"%d\\n\", search(root, 4));\n    printf(\"%d\\n\", search(root, 9));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that uses pointer arithmetic to compute the dot product of two float arrays.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nfloat dot_product(const float *a, const float *b, int n) {\n    float result = 0.0f;\n    for (int i = 0; i < n; i++) result += *(a + i) * *(b + i);\n    return result;\n}\n\nint main() {\n    float a[] = {1.0f, 2.0f, 3.0f};\n    float b[] = {4.0f, 5.0f, 6.0f};\n    printf(\"Dot product: %.1f\\n\", dot_product(a, b, 3));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that demonstrates struct with a self-referential pointer to implement a tree node.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct TreeNode {\n    int val;\n    struct TreeNode *left;\n    struct TreeNode *right;\n} TreeNode;\n\nTreeNode *create_node(int val) {\n    TreeNode *n = (TreeNode *)malloc(sizeof(TreeNode));\n    n->val = val; n->left = n->right = NULL;\n    return n;\n}\n\nvoid preorder(TreeNode *root) {\n    if (!root) return;\n    printf(\"%d \", root->val);\n    preorder(root->left);\n    preorder(root->right);\n}\n\nint main() {\n    TreeNode *root = create_node(1);\n    root->left = create_node(2);\n    root->right = create_node(3);\n    root->left->left = create_node(4);\n    preorder(root);\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that counts the number of set bits (1s) in an integer.",
+      "input": "",
+      "output": "#include <stdio.h>\n\nint count_bits(unsigned int n) {\n    int count = 0;\n    while (n) {\n        count += n & 1;\n        n >>= 1;\n    }\n    return count;\n}\n\nint main() {\n    printf(\"%d\\n\", count_bits(7));   // 3\n    printf(\"%d\\n\", count_bits(255)); // 8\n    printf(\"%d\\n\", count_bits(0));   // 0\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that allocates a 3D array dynamically and initialises all elements to zero.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\nint ***alloc_3d(int x, int y, int z) {\n    int ***arr = malloc(x * sizeof(int **));\n    for (int i = 0; i < x; i++) {\n        arr[i] = malloc(y * sizeof(int *));\n        for (int j = 0; j < y; j++) {\n            arr[i][j] = calloc(z, sizeof(int));\n        }\n    }\n    return arr;\n}\n\nint main() {\n    int ***a = alloc_3d(2, 3, 4);\n    a[1][2][3] = 99;\n    printf(\"%d\\n\", a[1][2][3]);\n    // (free omitted for brevity)\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C function that merges two sorted linked lists into one sorted linked list.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Node { int data; struct Node *next; } Node;\n\nNode *merge_sorted(Node *a, Node *b) {\n    if (!a) return b;\n    if (!b) return a;\n    if (a->data <= b->data) { a->next = merge_sorted(a->next, b); return a; }\n    b->next = merge_sorted(a, b->next);\n    return b;\n}\n\nNode *new_node(int v) { Node *n=malloc(sizeof(Node)); n->data=v; n->next=NULL; return n; }\nvoid print_list(Node *h) { while(h){printf(\"%d \",h->data);h=h->next;} printf(\"\\n\"); }\n\nint main() {\n    Node *a = new_node(1); a->next = new_node(3); a->next->next = new_node(5);\n    Node *b = new_node(2); b->next = new_node(4); b->next->next = new_node(6);\n    print_list(merge_sorted(a, b));\n    return 0;\n}"
+    },
+    {
+      "instruction": "Write a C program that reads a text file and prints the number of lines, words, and bytes using fread.",
+      "input": "",
+      "output": "#include <stdio.h>\n#include <ctype.h>\n\nint main() {\n    FILE *fp = fopen(\"source.txt\", \"rb\");\n    if (!fp) { fprintf(stderr, \"Cannot open file\\n\"); return 1; }\n    long lines = 0, words = 0, bytes = 0;\n    int in_word = 0;\n    char buf[4096];\n    size_t nr;\n    while ((nr = fread(buf, 1, sizeof(buf), fp)) > 0) {\n        for (size_t i = 0; i < nr; i++) {\n            bytes++;\n            if (buf[i] == '\\n') lines++;\n            if (isspace((unsigned char)buf[i])) in_word = 0;\n            else if (!in_word) { in_word = 1; words++; }\n        }\n    }\n    fclose(fp);\n    printf(\"Lines: %ld  Words: %ld  Bytes: %ld\\n\", lines, words, bytes);\n    return 0;\n}"
+    }
+  ]
+}

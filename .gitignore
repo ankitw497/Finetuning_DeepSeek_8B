@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+finetuned-*/
+results_*.json
+metrics_comparison.png
+efficiency_comparison.png
+*.bin
+*.safetensors
+*.out

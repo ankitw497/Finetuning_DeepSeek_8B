@@ -1,0 +1,61 @@
+# ============================================================
+# DeepSeek-R1-0528-Qwen3-8B QLoRA Fine-Tuning Pipeline
+# Hardware: Tesla T4 16GB | CUDA 11.8+ | Python 3.10+
+# ============================================================
+
+# --- Core ML frameworks ---
+torch==2.3.1                        # CUDA 11.8 wheel — install via pip index below
+torchvision==0.18.1
+torchaudio==2.3.1
+
+# --- HuggingFace ecosystem ---
+transformers==4.44.2
+datasets==2.20.0
+tokenizers==0.19.1
+accelerate==0.33.0
+peft==0.12.0                        # LoRA / QLoRA adapters
+trl==0.9.6                          # SFTTrainer
+huggingface-hub==0.24.6
+safetensors==0.4.3
+
+# --- Quantization (4-bit NF4 for QLoRA) ---
+bitsandbytes==0.43.3                # CUDA 11.8 compatible
+
+# --- DeepSpeed (ZeRO-2 parallelisation) ---
+deepspeed==0.15.1
+
+# --- Unsloth (fast QLoRA backend) ---
+# NOTE: Unsloth requires a separate install command for T4/CUDA 11.8:
+#   pip install "unsloth[cu118-torch230] @ git+https://github.com/unslothai/unsloth.git"
+# Listed here for documentation; actual install via command above.
+# unsloth  # <- uncomment only if using pip install unsloth (non-T4 path)
+
+# --- Evaluation ---
+evaluate==0.4.2
+sacrebleu==2.4.3                    # BLEU-4
+rouge-score==0.1.2
+nltk==3.8.1
+
+# --- Notebook ---
+jupyter==1.0.0
+ipywidgets==8.1.3
+matplotlib==3.9.2
+pandas==2.2.2
+seaborn==0.13.2
+
+# --- Utilities ---
+scipy==1.13.1
+numpy==1.26.4
+tqdm==4.66.5
+psutil==6.0.0
+py-cpuinfo==9.0.0
+packaging==24.1
+
+# ============================================================
+# Install order for fresh T4 environment:
+#
+# 1. pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu118
+# 2. pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu118
+# 3. pip install "unsloth[cu118-torch230] @ git+https://github.com/unslothai/unsloth.git"
+# 4. pip install flash-attn --no-build-isolation  # optional, speeds up attention
+# ============================================================
